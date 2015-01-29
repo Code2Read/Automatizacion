@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Firefox;
+﻿using System;
+using System.Drawing.Imaging;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumWebDriverTipoCambio
@@ -22,12 +24,15 @@ namespace SeleniumWebDriverTipoCambio
             var consultar = driver.FindElementByName("B1");
             consultar.Click();
 
+            var nombreArchivo = string.Format("{0}.png", DateTime.Now.ToString("yyyyMMddhhmmss"));
+            driver.GetScreenshot().SaveAsFile(nombreArchivo, ImageFormat.Png);
+
             var correo = driver.FindElementById("email");
             correo.SendKeys("berczeck69@gmail.com");
 
             var enviar = driver.FindElementByPartialLinkText("Enviar Correo");
             enviar.Click();
-
+            
             driver.Navigate().Back();
 
             var descargar = driver.FindElementByLinkText("Descargar");
